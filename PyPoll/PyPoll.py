@@ -4,6 +4,7 @@ import operator
 
 path = r"C:\Users\chamb\Desktop\python-challenge\PyPoll\Resources"
 pypoll_csv = os.path.join(path,'election_data.csv')
+file_to_save = os.path.join('analysis', 'analysis.txt')
 results = {}
 candidates=[]
 khan = 0
@@ -39,15 +40,22 @@ with open(pypoll_csv) as csvfile:
             correy = correy + 1
 results = {"Khan":khan, "Correy":correy, "O'Tooley":otooley, "Li":li}
 
-print("Election Results")
-print("---------------")
-print(f"Total Votes: {total_votes}")
-print("---------------") 
-print(f"Khan: {((khan/total_votes)*100):.3f}% ({khan})")
-print(f"Correy: {((correy/total_votes)*100):.3f}% ({correy})")
-print(f"Li: {((li/total_votes)*100):.3f}% ({li})")
-print(f"O'Tooley: {((otooley/total_votes)*100):.3f}% ({otooley})")
-print(f"Winner: {max(results.items(), key=operator.itemgetter(1))[0]}")
+output = (
+    f"Election Results\n"
+    f"---------------\n"
+    f"Total Votes: {total_votes}\n"
+    f"---------------\n"
+    f"Khan: {((khan/total_votes)*100):.3f}% ({khan})\n"
+    f"Correy: {((correy/total_votes)*100):.3f}% ({correy})\n"
+    f"Li: {((li/total_votes)*100):.3f}% ({li})\n"
+    f"O'Tooley: {((otooley/total_votes)*100):.3f}% ({otooley})\n"
+    f"Winner: {max(results.items(), key=operator.itemgetter(1))[0]}\n"
+)
+
+print(output)
 
 #https://stackoverflow.com/questions/268272/getting-key-with-maximum-value-in-dictionary
 
+
+with open(file_to_save, "w") as txt_file:
+    txt_file.write(output)

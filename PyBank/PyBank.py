@@ -3,6 +3,8 @@ import csv
 import operator
 
 pybank_csv = os.path.join('Resources', 'budget_data.csv')
+file_to_save = os.path.join('analysis', 'analysis.txt')
+
 months = []
 profit_losses = []
 difference = []
@@ -41,14 +43,22 @@ with open(pybank_csv) as csvfile:
     mindiff = round(min(difference))
     maxloc = difference.index(maxdiff)+1
     minloc = difference.index(mindiff)+1
-    def printresults():
-        print("Financial Analysis")
-        print("----------------------------")
-        print(f'Total Months: {len(months)}')
-        print(f'Total: ${net_total}')
-        print(f'Average Change: ${average:.2f}')
-        print(f'Greatest Increase in Profits: {months[maxloc]} (${maxdiff})')
-        print(f'Greatest Decrease in Profits: {months[minloc]} (${mindiff})')
-    printresults()
+
+
+output = (
+    f"Financial Analysis\n"
+    f"----------------------------\n"
+    f'Total Months: {len(months)}\n'
+    f'Total: ${net_total}\n'
+    f'Average Change: ${average:.2f}\n'
+    f'Greatest Increase in Profits: {months[maxloc]} (${maxdiff})\n'
+    f'Greatest Decrease in Profits: {months[minloc]} (${mindiff})\n'
+)
+
+print(output)
+
+with open(file_to_save, "w") as txt_file:
+    txt_file.write(output)
+
 
 
